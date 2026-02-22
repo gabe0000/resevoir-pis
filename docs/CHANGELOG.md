@@ -4,3 +4,8 @@
 - Bootstrapped Reservoir Pi(s) canonical docs system.
 - Added owner's manual, governance, contracts, and agent role definitions.
 - Added docs validation script and Wave 1 journal entry.
+
+## 2026-02-22
+- Added canonical quickstart with direct SSH terminal query flow for Joe Cabot.
+- Updated owner manual and contracts to current live MQTT/control topics.
+- Added canonical journal event `RP-20260222-002` for storage + runtime activation wave.
