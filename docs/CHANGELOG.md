@@ -9,3 +9,8 @@
 - Added canonical quickstart with direct SSH terminal query flow for Joe Cabot.
 - Updated owner manual and contracts to current live MQTT/control topics.
 - Added canonical journal event `RP-20260222-002` for storage + runtime activation wave.
+
+## 2026-02-22
+- Added dedicated-channel chat relay contract path (Mr. Pink -> Joe Cabot) over `susnet/agent/query` and `susnet/agent/reply`.
+- Confirmed allowlist action-gate remains enforced separately from conversational routing.
+- Added canonical event `RP-20260222-003` for conversational runtime expansion.

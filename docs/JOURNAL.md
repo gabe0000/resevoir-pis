@@ -40,3 +40,24 @@
 - Open Risks / Follow-ups:
   - Move heavy raw/log retention to `/data` paths in a later migration wave.
   - Add hardened retry/backoff wrappers for intermittent package-download timeouts.
+
+
+## RP-20260222-003
+- Date/Time: 2026-02-22 19:05 EST
+- Context: Edge conversational behavior on dedicated Meshtastic channel did not match operator expectation.
+- Decision: Route dedicated-channel free chat from Mr. Pink to Joe Cabot over MQTT query/reply, while retaining allowlist action gates.
+- Implementation:
+  - MeshBox bridge updated to relay dedicated non-action chat (`susnet/agent/query` -> `susnet/agent/reply`).
+  - Added request correlation + timeout fallback behavior in bridge router.
+  - Susnet Joe Cabot runtime expanded for conversational prompts with bounded local fallback output.
+  - Policy routing updated to reply to sender node directly for both dedicated and non-dedicated policy responses.
+- Failure(s) / Incident(s):
+  - Initial patch shell quoting failures.
+  - Local-model path may exceed timeout budget in some runs, so fallback remains necessary.
+- Verification:
+  - Bridge logs confirmed subscription to `susnet/agent/reply`.
+  - MQTT query/reply tests returned conversational and utility responses.
+  - Existing traffic summary intent remained functional.
+- Open Risks / Follow-ups:
+  - Tune timeout and model latency behavior after live RF validation.
+  - Add explicit metrics for upstream chat timeout rate.
