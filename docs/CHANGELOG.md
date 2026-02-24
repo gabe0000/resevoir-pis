@@ -14,3 +14,8 @@
 - Added dedicated-channel chat relay contract path (Mr. Pink -> Joe Cabot) over `susnet/agent/query` and `susnet/agent/reply`.
 - Confirmed allowlist action-gate remains enforced separately from conversational routing.
 - Added canonical event `RP-20260222-003` for conversational runtime expansion.
+
+## 2026-02-24
+- Added front-desk lifecycle contract to canonical docs: `ack`, `progress`, `control`, `error`, and `dlq` topics.
+- Documented deterministic timeout classes and wait-extension semantics for Mr Pink and Joe handoff.
+- Synced agent role docs to strict front-desk model where Joe remains back-office only.

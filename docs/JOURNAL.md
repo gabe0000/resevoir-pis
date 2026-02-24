@@ -61,3 +61,21 @@
 - Open Risks / Follow-ups:
   - Tune timeout and model latency behavior after live RF validation.
   - Add explicit metrics for upstream chat timeout rate.
+
+## RP-20260224-001
+- Date/Time: 2026-02-24 14:12 EST
+- Context:
+  - MeshBox runtime was refactored to a deterministic front-desk state machine and canonical docs needed to match current behavior.
+- Decision:
+  - Standardize all repos on one lifecycle contract with explicit timeout classes and cancel semantics.
+- Implementation:
+  - Updated canonical owner manual, role docs, and MQTT contract docs with lifecycle topics and envelope fields.
+  - Recorded timing defaults and strict front-desk policy behavior.
+  - Added changelog and logbook references for cross-repo traceability.
+- Failure(s) / Incident(s):
+  - No canonical-repo runtime incident during this sync wave.
+- Verification:
+  - MeshBox bridge and Susnet Joe service tests observed ack/progress/reply and cancel path behavior.
+  - Ack timeout and busy timeout classes were observed in controlled tests.
+- Open Risks / Follow-ups:
+  - Live RF tests should continue validating wait-prompt continue/stop flows under real traffic.
