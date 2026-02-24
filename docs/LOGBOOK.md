@@ -8,3 +8,5 @@
 - 2026-02-24: Added RP-20260224-001 canonical front-desk lifecycle alignment and timeout classification contract.
 
 - 2026-02-24: Added RP-20260224-002 arithmetic reliability guardrail and query-sanitization contract note.
+
+- 2026-02-24: Added RP-20260224-003 runtime provenance closure for Joe source tracking and deploy sync workflow.

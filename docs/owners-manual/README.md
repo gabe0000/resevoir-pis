@@ -28,6 +28,9 @@
   - `meshbox/agent/events/policy`
   - `meshbox/agent/events/health`
   - `meshbox/agent/events/nodes`
+- Joe runtime provenance:
+  - source tracked in `susnet` repo at `susnet-next/services/joe-cabot-lite/`
+  - deployed runtime synced to `/home/codex/joe-cabot-lite` via `scripts/deploy-joe-cabot-lite.sh`
 - Repo roles:
   - Canonical architecture/governance: `resevoir-pis`
   - Control-plane implementation: `susnet`

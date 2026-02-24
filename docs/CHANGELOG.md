@@ -23,3 +23,6 @@
 ## 2026-02-24
 - Added canonical reliability note for arithmetic drift incident and mitigation in Joe runtime.
 - Documented query sanitization requirement before control-plane intent handling when edge appends RF constraint metadata.
+
+## 2026-02-24
+- Closed control-plane runtime provenance gap: Joe runtime source is now tracked in `susnet` repo under `susnet-next/services/joe-cabot-lite/` with explicit deploy-sync workflow.

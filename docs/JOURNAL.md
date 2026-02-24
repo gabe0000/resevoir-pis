@@ -97,3 +97,22 @@
   - Edge escalation path returned `status=reply` with response `4`.
 - Open Risks / Follow-ups:
   - Runtime source should be moved into tracked repo path for full auditable code provenance.
+
+## RP-20260224-003
+- Date/Time: 2026-02-24 14:30 EST
+- Context:
+  - Canonical open risk remained for control-plane code provenance because Joe runtime lived only on host path.
+- Decision:
+  - Require tracked source in `susnet` repo and explicit deploy-sync command for runtime parity.
+- Implementation:
+  - `susnet` now tracks Joe code under `susnet-next/services/joe-cabot-lite/`.
+  - Deploy script `scripts/deploy-joe-cabot-lite.sh` syncs source to `/home/codex/joe-cabot-lite`, compiles, and restarts service.
+  - Deployment marker file records repo revision and timestamp.
+- Failure(s) / Incident(s):
+  - None during provenance closure wave.
+- Verification:
+  - Source/runtime file hashes matched for `joe_cabot_lite.py` and `ask_joe.py`.
+  - `joe-cabot-lite.service` remained active after deploy.
+  - Validation query `what is 2+2` returned `4`.
+- Open Risks / Follow-ups:
+  - Add CI tests for tracked Joe runtime directory.
