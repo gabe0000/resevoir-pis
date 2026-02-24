@@ -6,3 +6,5 @@
 - 2026-02-22: Added RP-20260222-003 dedicated-channel conversational relay update (Mr. Pink to Joe Cabot).
 
 - 2026-02-24: Added RP-20260224-001 canonical front-desk lifecycle alignment and timeout classification contract.
+
+- 2026-02-24: Added RP-20260224-002 arithmetic reliability guardrail and query-sanitization contract note.

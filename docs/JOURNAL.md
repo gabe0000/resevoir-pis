@@ -79,3 +79,21 @@
   - Ack timeout and busy timeout classes were observed in controlled tests.
 - Open Risks / Follow-ups:
   - Live RF tests should continue validating wait-prompt continue/stop flows under real traffic.
+
+## RP-20260224-002
+- Date/Time: 2026-02-24 16:05 EST
+- Context:
+  - During end-to-end validation a deterministic sanity prompt (`2+2`) produced an incorrect answer once, raising a reliability concern.
+- Decision:
+  - Treat this as a correctness incident and enforce deterministic guardrails for simple arithmetic prompts.
+- Implementation:
+  - Control-plane runtime updated to sanitize edge-appended RF metadata before intent and model handling.
+  - Added deterministic arithmetic fast-path for simple numeric expressions.
+  - Reduced local model randomness (`temperature=0.0`) for short factual prompts.
+- Failure(s) / Incident(s):
+  - Incident classification: model/prompt-handling reliability issue, not duplicate transport processing.
+- Verification:
+  - Repeated direct probes returned correct `4` responses.
+  - Edge escalation path returned `status=reply` with response `4`.
+- Open Risks / Follow-ups:
+  - Runtime source should be moved into tracked repo path for full auditable code provenance.

@@ -19,3 +19,7 @@
 - Added front-desk lifecycle contract to canonical docs: `ack`, `progress`, `control`, `error`, and `dlq` topics.
 - Documented deterministic timeout classes and wait-extension semantics for Mr Pink and Joe handoff.
 - Synced agent role docs to strict front-desk model where Joe remains back-office only.
+
+## 2026-02-24
+- Added canonical reliability note for arithmetic drift incident and mitigation in Joe runtime.
+- Documented query sanitization requirement before control-plane intent handling when edge appends RF constraint metadata.
