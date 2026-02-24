@@ -1,44 +1,53 @@
 # Reservoir Pi(s) Quickstart
 
 ## Goal
-Use this quick guide to verify the distributed agent path end-to-end.
+Verify the distributed front-desk path end to end.
 
 ## Hosts
-- MeshBox edge: `meshbox`
-- Susnet control plane: `susnet`
+- MeshBox edge: `100.124.168.35`
+- Susnet control: `100.90.138.26`
 
 ## 1) Verify edge services on MeshBox
 ```bash
-ssh codex@meshbox
-sudo docker ps --format 'table {{.Names}}\t{{.Status}}'
+ssh gabe0000@100.124.168.35
+sudo docker compose -f ~/meshbox/compose/meshbox-core/docker-compose.yml ps meshtastic_bridge mosquitto nodered
 ```
-Expect at minimum:
-- `meshtastic_bridge`
-- `mosquitto`
-- `nodered`
 
 ## 2) Verify control services on Susnet
 ```bash
-ssh codex@susnet
-sudo docker ps --format 'table {{.Names}}\t{{.Status}}' | grep -E 'openclaw|ollama|mosquitto'
+ssh gabe0000@100.90.138.26
 sudo systemctl status joe-cabot-lite --no-pager
+sudo docker ps --format "table {{.Names}}\t{{.Status}}" | grep -E "openclaw|ollama|mosquitto"
 ```
 
-## 3) Query Joe Cabot directly from SSH terminal
-Terminal A:
+## 3) Observe control lifecycle topics
 ```bash
-ssh codex@susnet
-sudo docker exec -it susnet-next-mosquitto sh -lc 'mosquitto_sub -h meshbox -p 1883 -t susnet/agent/reply'
-```
-Terminal B:
-```bash
-ssh codex@susnet
-RID=$(date +%s)-$RANDOM
-sudo docker exec -i susnet-next-mosquitto sh -lc "mosquitto_pub -h meshbox -p 1883 -t susnet/agent/query -m '{\"request_id\":\"$RID\",\"sender\":\"!9e77f1a0\",\"text\":\"traffic load summary please\"}'"
+ssh gabe0000@100.124.168.35
+sudo docker exec mosquitto mosquitto_sub -h localhost -t "susnet/agent/#" -v
 ```
 
-## 4) Validate docs contract in this repo
+## 4) Send a correlated query
 ```bash
-cd /home/gabe0000/wave1/resevoir-pis
+ssh gabe0000@100.124.168.35
+RID="$(date +%s)-$RANDOM"
+TS="$(date +%s)"
+EXP="$((TS+120))"
+sudo docker exec mosquitto mosquitto_pub -h localhost -t susnet/agent/query -m "{\"request_id\":\"$RID\",\"session_id\":\"sess-$RID\",\"text\":\"what is 2+2\",\"sender\":{\"node_id\":\"!9e77f1a0\",\"shortname\":\"GETB\",\"longname\":\"GETB\"},\"channel_index\":1,\"origin\":\"meshtastic\",\"created_ts\":$TS,\"expires_ts\":$EXP,\"trace\":{\"edge_host\":\"meshbox\",\"control_host\":\"susnet\",\"version\":\"quickstart\"}}"
+```
+
+## 5) Expected lifecycle
+- `susnet/agent/ack`
+- `susnet/agent/progress` with `queued` and `started`
+- optional `susnet/agent/progress` with `still_working`
+- `susnet/agent/reply`
+- `susnet/agent/progress` with `completed`
+
+## 6) Timeout classes
+- no ack by 7s means unreachable path
+- ack but no final by 30s means busy timeout
+
+## 7) Validate canonical docs
+```bash
+cd ~/sync-work/resevoir-pis-sync
 ./scripts/validate-docs.sh
 ```
