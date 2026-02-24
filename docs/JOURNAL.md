@@ -116,3 +116,19 @@
   - Validation query `what is 2+2` returned `4`.
 - Open Risks / Follow-ups:
   - Add CI tests for tracked Joe runtime directory.
+
+## RP-20260224-004
+- Date/Time: 2026-02-24 21:33 UTC
+- Context:
+  - MeshBox introduced a dedicated stock-client MQTT listener and canonical docs needed to reflect onboarding boundaries.
+- Decision:
+  - Add explicit canonical contract for stock-client listener host/port/auth/ACL scope.
+- Implementation:
+  - Updated owner manual and MQTT contract docs.
+  - Added changelog and logbook references.
+- Failure(s) / Incident(s):
+  - None.
+- Verification:
+  - Listener `1884` active and scoped for `msh/#` in runtime checks.
+- Open Risks / Follow-ups:
+  - Add TLS listener and cert management for untrusted networks if needed.

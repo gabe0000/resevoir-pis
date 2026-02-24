@@ -26,3 +26,6 @@
 
 ## 2026-02-24
 - Closed control-plane runtime provenance gap: Joe runtime source is now tracked in `susnet` repo under `susnet-next/services/joe-cabot-lite/` with explicit deploy-sync workflow.
+
+## 2026-02-24
+- Added canonical stock Meshtastic MQTT onboarding contract for MeshBox listener `1884` with auth and ACL scope `msh/#`.

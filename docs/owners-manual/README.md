@@ -2,7 +2,7 @@
 
 ## Canonical State
 - Program: Reservoir Pi(s)
-- Last validated date (UTC): 2026-02-24 14:12
+- Last validated date (UTC): 2026-02-24 21:33
 - Control-plane authority: `Joe Cabot` on `susnet` (`susnet`)
 - RF edge agent: `Mr. Pink` on `meshbox` (`meshbox`)
 - Inter-host transport: MQTT over Tailscale
@@ -23,6 +23,10 @@
   - `susnet/agent/control`
   - `susnet/agent/error`
   - `susnet/agent/dlq`
+- Stock-client MQTT onboarding:
+  - MeshBox listener `100.124.168.35:1884`
+  - auth required
+  - ACL-limited to `msh/#`
 - Edge event topics consumed by control:
   - `meshbox/agent/events/rx`
   - `meshbox/agent/events/policy`

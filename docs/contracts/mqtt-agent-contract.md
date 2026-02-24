@@ -71,3 +71,11 @@
 - Timeout classes are explicit and observable:
   - no ack by 7s -> unreachable
   - acked but no final by 30s -> busy timeout
+
+
+## 4) Stock Meshtastic Client Listener
+- Broker host: `100.124.168.35`
+- Listener: `1884`
+- Auth: required
+- ACL scope: `msh/#` only
+- Internal control topics (`susnet/agent/#`, `meshbox/agent/#`) are intentionally not exposed on this listener.

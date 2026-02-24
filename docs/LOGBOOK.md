@@ -10,3 +10,5 @@
 - 2026-02-24: Added RP-20260224-002 arithmetic reliability guardrail and query-sanitization contract note.
 
 - 2026-02-24: Added RP-20260224-003 runtime provenance closure for Joe source tracking and deploy sync workflow.
+
+- 2026-02-24: Added RP-20260224-004 canonical stock MQTT onboarding contract note.
