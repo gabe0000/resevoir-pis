@@ -1,0 +1,34 @@
+name: Weekly docs drift check
+description: Compare private canonical docs with public projection and capture stale sections.
+title: "[Docs Drift] Weekly private vs public projection check"
+labels:
+  - documentation
+  - governance
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Run this weekly check against private canonical repos and update public projections as needed.
+  - type: checkboxes
+    id: sources
+    attributes:
+      label: Source verification
+      options:
+        - label: Reviewed latest `susnet` architecture/contracts docs
+        - label: Reviewed latest `meshbox-privat` architecture/contracts docs
+        - label: Reviewed `docs/PUBLIC_DOCS_MAP.md` mappings
+  - type: checkboxes
+    id: drift
+    attributes:
+      label: Drift findings
+      options:
+        - label: No drift found
+        - label: Drift found and public updates required
+  - type: textarea
+    id: stale_sections
+    attributes:
+      label: Stale sections and planned updates
+      description: List stale public docs and which private source changed.
+      placeholder: docs/path.md -> source repo/path and required update summary
+    validations:
+      required: true

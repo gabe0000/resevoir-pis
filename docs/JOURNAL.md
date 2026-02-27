@@ -61,3 +61,21 @@
 - Open Risks / Follow-ups:
   - Tune timeout and model latency behavior after live RF validation.
   - Add explicit metrics for upstream chat timeout rate.
+
+## RP-20260227-001
+- Date/Time: 2026-02-27 09:20 EST
+- Context: Governance expansion to support private-first canonical docs with public-safe projection.
+- Decision:
+  - Split MQTT docs into stock Meshtastic contract and custom agent contract.
+  - Add explicit public sanitization policy and private-to-public docs map.
+  - Enforce PR-gated validation with leak scanning.
+- Implementation:
+  - Added architecture system map and permission-gate overview docs.
+  - Added stock/custom contract files with JSON schema examples.
+  - Added policy/map files, CI workflow, and weekly drift issue template.
+  - Hardened docs validator with security scans.
+- Failure(s) / Incident(s): None.
+- Verification:
+  - `scripts/validate-docs.sh` passes.
+- Open Risks / Follow-ups:
+  - Maintain weekly drift checks and tighten scan patterns as new leak classes appear.

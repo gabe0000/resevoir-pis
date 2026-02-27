@@ -1,7 +1,7 @@
 # Channel Identity Contract
 
 ## Rule
-Actionable command authorization is based on dedicated channel identity by name + key fingerprint, not channel index.
+Actionable command authorization is based on dedicated channel identity by name plus key fingerprint, not channel index.
 
 ## Required Match Conditions
 - `channel.name` equals configured dedicated channel name
@@ -9,4 +9,4 @@ Actionable command authorization is based on dedicated channel identity by name 
 - sender is allowlisted for actionable intents
 
 ## Rationale
-Channel indices can change between devices and over time; identity matching avoids accidental policy bypass.
+Channel indices can drift between devices and over time; identity matching reduces accidental policy bypass.

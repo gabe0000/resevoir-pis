@@ -1,17 +1,16 @@
 # Governance
 
 ## Ownership
-- Canonical architecture authority: `resevoir-pis`.
-- Runtime control authority: `Joe Cabot` on `susnet`.
-- RF edge execution authority: `Mr. Pink` on `meshbox` with policy gates.
+- Canonical public architecture authority: `resevoir-pis`.
+- Private control runtime authority: `susnet`.
+- Private RF edge runtime authority: `meshbox-privat`.
 
 ## Cross-Repo Precedence
-1. `resevoir-pis` canonical state and contracts
-2. `susnet` control-plane topical docs
-3. `meshbox-privat` edge topical docs
-4. Journal/logbook/changelog summaries
+1. Private implementation truth (`susnet`, `meshbox-privat`)
+2. Sanitized projection in `resevoir-pis`
+3. Journal/logbook/changelog summaries
 
 ## Sync Rules
-- Significant changes in `susnet` or `meshbox-privat` must reference canonical journal IDs (`RP-YYYYMMDD-###`).
-- Public repos remain public-safe.
-- Sensitive edge details are documented only in `meshbox-privat`.
+- Meaningful runtime changes in private repos must map to a public-safe update in this repo.
+- Public docs never contain real credentials, direct host access strings, or private addressing.
+- Weekly drift checks compare private canonical docs against this projection.

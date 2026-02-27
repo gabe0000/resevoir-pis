@@ -1,44 +1,40 @@
-# Reservoir Pi(s) Quickstart
+# Reservoir Pi(s) Quickstart (Public-Safe)
 
 ## Goal
-Use this quick guide to verify the distributed agent path end-to-end.
+Verify the end-to-end custom query/reply lifecycle and stock MQTT compatibility using sanitized, role-based steps.
 
-## Hosts
-- MeshBox edge: `meshbox`
-- Susnet control plane: `susnet`
+## Role Placeholders
+- Edge host: `<edge-host>`
+- Control host: `<control-host>`
+- SSH user: `<ssh-user>`
+- Broker container: `<broker-container>`
 
-## 1) Verify edge services on MeshBox
+## 1) Verify edge services
+Run on `<edge-host>`:
 ```bash
-ssh codex@meshbox
 sudo docker ps --format 'table {{.Names}}\t{{.Status}}'
 ```
-Expect at minimum:
-- `meshtastic_bridge`
-- `mosquitto`
-- `nodered`
 
-## 2) Verify control services on Susnet
+## 2) Verify control services
+Run on `<control-host>`:
 ```bash
-ssh codex@susnet
-sudo docker ps --format 'table {{.Names}}\t{{.Status}}' | grep -E 'openclaw|ollama|mosquitto'
+sudo docker ps --format 'table {{.Names}}\t{{.Status}}'
 sudo systemctl status joe-cabot-lite --no-pager
 ```
 
-## 3) Query Joe Cabot directly from SSH terminal
-Terminal A:
+## 3) Query custom agent topics directly
+Terminal A on `<control-host>`:
 ```bash
-ssh codex@susnet
-sudo docker exec -it susnet-next-mosquitto sh -lc 'mosquitto_sub -h meshbox -p 1883 -t susnet/agent/reply'
+sudo docker exec -it <broker-container> sh -lc 'mosquitto_sub -h <edge-broker-host> -p 1883 -t susnet/agent/reply'
 ```
-Terminal B:
+Terminal B on `<control-host>`:
 ```bash
-ssh codex@susnet
 RID=$(date +%s)-$RANDOM
-sudo docker exec -i susnet-next-mosquitto sh -lc "mosquitto_pub -h meshbox -p 1883 -t susnet/agent/query -m '{\"request_id\":\"$RID\",\"sender\":\"!9e77f1a0\",\"text\":\"traffic load summary please\"}'"
+sudo docker exec -i <broker-container> sh -lc "mosquitto_pub -h <edge-broker-host> -p 1883 -t susnet/agent/query -m '{\"request_id\":\"'$RID'\",\"sender\":\"<sender-id>\",\"text\":\"status summary please\"}'"
 ```
 
 ## 4) Validate docs contract in this repo
 ```bash
-cd /home/gabe0000/wave1/resevoir-pis
+cd <repo-root>/resevoir-pis
 ./scripts/validate-docs.sh
 ```

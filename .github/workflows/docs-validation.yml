@@ -1,0 +1,25 @@
+name: docs-validation
+
+on:
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'docs/**'
+      - 'scripts/validate-docs.sh'
+      - '.github/workflows/docs-validation.yml'
+  push:
+    branches:
+      - master
+    paths:
+      - 'README.md'
+      - 'docs/**'
+      - 'scripts/validate-docs.sh'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate docs
+        run: ./scripts/validate-docs.sh
