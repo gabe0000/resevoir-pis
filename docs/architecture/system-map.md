@@ -20,6 +20,7 @@ flowchart LR
 
 ## Linked Docs
 - [Permission Gates Overview](permission-gates-overview.md)
+- [Container Runtime and Gates](container-runtime-and-gates.md)
 - [Stock Meshtastic MQTT Contract](../contracts/stock-meshtastic-mqtt-contract.md)
 - [Custom MeshBox-Susnet Agent Contract](../contracts/custom-meshbox-susnet-agent-contract.md)
 - [Public Docs Map](../PUBLIC_DOCS_MAP.md)

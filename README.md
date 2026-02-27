@@ -25,9 +25,12 @@ Primary mission:
 ## Key Documentation
 - `docs/owners-manual/README.md`
 - `docs/architecture/system-map.md`
+- `docs/architecture/container-runtime-and-gates.md`
 - `docs/architecture/permission-gates-overview.md`
 - `docs/contracts/stock-meshtastic-mqtt-contract.md`
 - `docs/contracts/custom-meshbox-susnet-agent-contract.md`
+- `docs/papers/2026-02-system-state-and-llm-agent-phase2.md`
+- `docs/incidents/RP-20260227-002-mr-pink-joe-stabilization.md`
 - `docs/PUBLIC_SANITIZATION_POLICY.md`
 - `docs/PUBLIC_DOCS_MAP.md`
 

@@ -21,3 +21,6 @@
 - Added `PUBLIC_SANITIZATION_POLICY.md` and `PUBLIC_DOCS_MAP.md`.
 - Added docs CI validation workflow and weekly drift issue template.
 - Upgraded docs validator with leakage scans and PR-gated publication checks.
+- Added incident report `RP-20260227-002` covering Mr. Pink <-> Joe stabilization work.
+- Added detailed technical paper for current state and Phase 2 LLM/agent-stack plan.
+- Updated custom agent contract to match current envelope and lifecycle semantics.

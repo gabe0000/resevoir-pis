@@ -2,7 +2,7 @@
 
 ## Canonical State
 - Program: Reservoir Pi(s)
-- Last validated (UTC): 2026-02-27 14:20
+- Last validated (UTC): 2026-02-27 15:35
 - Control-plane authority: `Joe Cabot` on `<control-host>`
 - RF edge agent: `Mr. Pink` on `<edge-host>`
 - Inter-host transport: MQTT over private tailnet
@@ -20,6 +20,7 @@
   - `RP-20260222-002`
   - `RP-20260222-003`
   - `RP-20260227-001`
+  - `RP-20260227-002`
 - Validator: `scripts/validate-docs.sh v2`
 
 ## Definition of Done

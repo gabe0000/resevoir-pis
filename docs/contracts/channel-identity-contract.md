@@ -10,3 +10,8 @@ Actionable command authorization is based on dedicated channel identity by name 
 
 ## Rationale
 Channel indices can drift between devices and over time; identity matching reduces accidental policy bypass.
+
+## Anti-Pattern (Do Not Use)
+- Do not use `channel_index` as an authorization selector.
+- Do not treat topic index and packet index mismatches as a permission decision source.
+- Do treat index fields as transport metadata useful for diagnostics and routing telemetry only.

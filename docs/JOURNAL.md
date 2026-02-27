@@ -79,3 +79,30 @@
   - `scripts/validate-docs.sh` passes.
 - Open Risks / Follow-ups:
   - Maintain weekly drift checks and tighten scan patterns as new leak classes appear.
+
+## RP-20260227-002
+- Date/Time: 2026-02-27 15:35 EST
+- Context: Mr. Pink <-> Joe round-trip behavior showed intermittent relay failure, ordering issues, and ambiguity between stock path transport metadata and permission identity.
+- Decision:
+  - Stabilize runtime behavior first, then document the exact working state and Phase 2 LLM/agent integration path.
+  - Preserve stock compatibility while keeping custom agent contract explicit.
+- Implementation:
+  - Enforced channel-identity-first authorization rule (name + fingerprint) and documented index as metadata only.
+  - Fixed callback lock contention path affecting downstream relay progression.
+  - Added single-relay guard and outbound FIFO sequencing in edge relay logic.
+  - Enforced inter-chunk pacing for multi-chunk responses.
+  - Added and then removed temporary user-facing status texts after stabilization validation.
+  - Added public incident record and comprehensive technical paper for Phase 2 planning.
+- Failure(s) / Incident(s):
+  - High operational friction from overlapping async pathways and mixed transport signals.
+  - Relay intermittency appeared as transport instability but included callback state-flow faults.
+  - Timing-sensitive issues were difficult to reproduce in single-shot synthetic tests.
+- Verification:
+  - Observed query lifecycle: `query -> ack -> progress -> reply -> completed`.
+  - Confirmed final relay chunk order and minimum spacing behavior.
+  - Confirmed status-debug text removal in steady-state production behavior.
+  - Confirmed docs validation pass.
+- Open Risks / Follow-ups:
+  - Integrate full LLM + agent runtime behind existing contract without breaking gates.
+  - Expand chaos and replay testing for DLQ/orphan and cancellation branches.
+  - Add richer machine-readable error taxonomy for agent-runtime failures.

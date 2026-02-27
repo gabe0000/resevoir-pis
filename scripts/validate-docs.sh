@@ -9,6 +9,7 @@ required=(
   docs/owners-manual/README.md
   docs/owners-manual/10-governance.md
   docs/architecture/system-map.md
+  docs/architecture/container-runtime-and-gates.md
   docs/architecture/permission-gates-overview.md
   docs/contracts/mqtt-agent-contract.md
   docs/contracts/stock-meshtastic-mqtt-contract.md
@@ -16,6 +17,8 @@ required=(
   docs/contracts/channel-identity-contract.md
   docs/PUBLIC_SANITIZATION_POLICY.md
   docs/PUBLIC_DOCS_MAP.md
+  docs/papers/2026-02-system-state-and-llm-agent-phase2.md
+  docs/incidents/RP-20260227-002-mr-pink-joe-stabilization.md
   docs/agents/joe-cabot.md
   docs/agents/mr-pink.md
 )
@@ -29,7 +32,10 @@ grep -q "PR-only gated" docs/DOCS_CONTRACT.md || { echo "missing publish flow ru
 grep -q "name plus key fingerprint" docs/contracts/channel-identity-contract.md || { echo "missing channel identity rule"; exit 1; }
 
 # Security scan across markdown content, excluding policy/map docs that intentionally describe patterns.
-mapfile -t md_files < <(
+md_files=()
+while IFS= read -r f; do
+  md_files+=("$f")
+done < <(
   {
     echo "README.md"
     find docs -type f -name '*.md' \
