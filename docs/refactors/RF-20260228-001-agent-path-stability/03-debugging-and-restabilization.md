@@ -27,3 +27,10 @@
 1. Replace remaining high-frequency poll paths with socket/hook-based updates where feasible.
 2. Add per-surface observability acceptance thresholds to refactor closure criteria.
 3. Continue hard enforcement of channel identity rule in docs and review checklists.
+
+## Second Runtime Pass (Same Refactor Wave)
+1. Traced another hotspot to node-snapshot handling in the Meshtastic module.
+2. Removed unnecessary node-state write churn by only persisting node records when values actually change.
+3. Switched `/nodes` reads to cached mode by default with opt-in refresh.
+4. Added snapshot pacing (`MESH_NODE_SNAPSHOT_SECONDS`, default 15s) to reduce repeated full-node scans.
+5. Confirmed this pass kept runtime contracts unchanged while lowering background churn.
