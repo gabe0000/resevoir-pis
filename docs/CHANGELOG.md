@@ -33,3 +33,4 @@
 - Updated docs contract and governance to require restabilization logging for every refactor.
 - Expanded `PUBLIC_DOCS_MAP.md` to include surface/refactor projection mappings.
 - Updated validator to enforce required refactor files and additional leak checks.
+- Added RP-20260228-001 runtime-tuning addendum documenting first poll-pressure reduction pass on Susnet control path.

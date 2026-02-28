@@ -13,13 +13,17 @@
 3. Isolated noisy polling path (`dashboard -> core API -> meshtastic module`).
 4. Confirmed channel identity rule should be name plus key fingerprint, never index.
 5. Re-validated fallback and upstream paths under current semi-stable behavior.
+6. Applied poll-pressure reduction refactor on control side:
+   - pooled and coalesced cache-miss handling in `core-api` Meshtastic read path
+   - slower dashboard poll cadence for non-critical Meshtastic views.
 
 ## Stabilization Outcomes
 - Lifecycle path operates in semi-stable state.
-- Primary remaining technical debt is polling-induced burst load and the need for stronger event-driven updates.
+- Poll-induced pressure was reduced in the first runtime tuning pass.
+- Primary remaining technical debt is full event-driven replacement for remaining polling-heavy views.
 - Governance gap closed by making refactor and restabilization logging mandatory.
 
 ## Follow-Up Work
-1. Replace high-frequency poll paths with socket/hook-based updates where feasible.
+1. Replace remaining high-frequency poll paths with socket/hook-based updates where feasible.
 2. Add per-surface observability acceptance thresholds to refactor closure criteria.
 3. Continue hard enforcement of channel identity rule in docs and review checklists.

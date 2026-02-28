@@ -129,3 +129,9 @@
 - Open Risks / Follow-ups:
   - Complete equivalent private repo refactor-tree updates and link resulting private PR IDs into public projection PR notes.
   - Replace high-frequency polling chain with event-driven delivery to reduce periodic burst load.
+
+### 2026-02-28 21:10 UTC Addendum
+- Applied first runtime tuning pass on Susnet control side:
+  - core API now coalesces concurrent Meshtastic cache misses and reuses pooled HTTP connections.
+  - dashboard poll cadence for key Meshtastic views was reduced.
+- Observed call-rate reduction in short verification window on core-api -> meshtastic module path.
