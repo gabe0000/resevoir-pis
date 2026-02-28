@@ -106,3 +106,26 @@
   - Integrate full LLM + agent runtime behind existing contract without breaking gates.
   - Expand chaos and replay testing for DLQ/orphan and cancellation branches.
   - Add richer machine-readable error taxonomy for agent-runtime failures.
+
+## RP-20260228-001
+- Date/Time: 2026-02-28 20:05 UTC
+- Context: Baseline-now governance refactor to standardize deep refactor records and post-debug stabilization logs across private and public documentation surfaces.
+- Decision:
+  - Add a mandatory `docs/refactors/<refactor-id>/` bundle model.
+  - Split public architecture docs into explicit surfaces (stock Meshtastic, edge bridge, control runtime, permission gates).
+  - Add cross-host isolation map so readers can isolate subsystems while preserving end-to-end context.
+  - Extend validator gates to fail on missing refactor artifacts and missing anti-pattern protections.
+- Implementation:
+  - Added `docs/refactors` README, templates, and first refactor record `RF-20260228-001-agent-path-stability`.
+  - Added `docs/architecture/cross-host-component-map.md` and surface docs under `docs/architecture/surfaces/`.
+  - Updated governance and docs contract to require refactor + restabilization entries as Definition of Done.
+  - Updated `PUBLIC_DOCS_MAP.md` and sanitization policy to include refactor/surface projection rules.
+  - Upgraded docs validator to enforce required refactor files and additional leakage checks.
+- Failure(s) / Incident(s):
+  - Automation identity did not have read access to private source tree paths on control host, so private repo sync requires owner-executed follow-through or access adjustment.
+- Verification:
+  - New required docs paths created and linked.
+  - Validator updated to enforce new structure and policy checks.
+- Open Risks / Follow-ups:
+  - Complete equivalent private repo refactor-tree updates and link resulting private PR IDs into public projection PR notes.
+  - Replace high-frequency polling chain with event-driven delivery to reduce periodic burst load.

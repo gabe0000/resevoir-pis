@@ -24,3 +24,12 @@
 - Added incident report `RP-20260227-002` covering Mr. Pink <-> Joe stabilization work.
 - Added detailed technical paper for current state and Phase 2 LLM/agent-stack plan.
 - Updated custom agent contract to match current envelope and lifecycle semantics.
+
+## 2026-02-28
+- Added baseline-now refactor governance wave `RP-20260228-001`.
+- Added `docs/refactors` required structure, templates, and first heavy refactor record `RF-20260228-001-agent-path-stability`.
+- Added architecture surface split docs under `docs/architecture/surfaces/`.
+- Added `docs/architecture/cross-host-component-map.md` for host-isolated system reading.
+- Updated docs contract and governance to require restabilization logging for every refactor.
+- Expanded `PUBLIC_DOCS_MAP.md` to include surface/refactor projection mappings.
+- Updated validator to enforce required refactor files and additional leak checks.

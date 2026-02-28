@@ -2,7 +2,8 @@
 
 ## Canonical State
 - Program: Reservoir Pi(s)
-- Last validated (UTC): 2026-02-27 15:35
+- Last validated (UTC): 2026-02-28 20:05
+- Baseline status: semi-stable baseline synchronized now (not final stable)
 - Control-plane authority: `Joe Cabot` on `<control-host>`
 - RF edge agent: `Mr. Pink` on `<edge-host>`
 - Inter-host transport: MQTT over private tailnet
@@ -21,10 +22,12 @@
   - `RP-20260222-003`
   - `RP-20260227-001`
   - `RP-20260227-002`
-- Validator: `scripts/validate-docs.sh v2`
+  - `RP-20260228-001`
+- Validator: `scripts/validate-docs.sh v3`
 
 ## Definition of Done
 - [ ] Runtime/docs changes reconciled in private repos
 - [ ] Public-safe projection updated in this repo
+- [ ] Required refactor bundle updated under `docs/refactors/`
 - [ ] Journal/logbook/changelog updated
 - [ ] Validation script passes

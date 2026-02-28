@@ -16,6 +16,7 @@ body:
       options:
         - label: Reviewed latest `susnet` architecture/contracts docs
         - label: Reviewed latest `meshbox-privat` architecture/contracts docs
+        - label: Reviewed latest `susnet` and `meshbox-privat` `docs/refactors` bundles
         - label: Reviewed `docs/PUBLIC_DOCS_MAP.md` mappings
   - type: checkboxes
     id: drift
@@ -28,7 +29,7 @@ body:
     id: stale_sections
     attributes:
       label: Stale sections and planned updates
-      description: List stale public docs and which private source changed.
+      description: List stale public docs and which private source changed, including refactor bundle drift.
       placeholder: docs/path.md -> source repo/path and required update summary
     validations:
       required: true

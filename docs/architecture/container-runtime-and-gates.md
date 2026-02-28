@@ -40,6 +40,13 @@ This doc explains the real runtime control points for the Mr. Pink <-> Joe flow 
 - Single-relay guard per request correlation id.
 - Callback deadlock fix by avoiding re-entrant state updates while locks are held.
 
+## Surface References
+- [Cross-Host Component Map](cross-host-component-map.md)
+- [Stock Meshtastic Surface](surfaces/stock-meshtastic.md)
+- [Edge Bridge Surface](surfaces/edge-bridge-mr-pink.md)
+- [Control Runtime Surface](surfaces/control-runtime-joe-openclaw.md)
+- [Permission Gate Surface](surfaces/permission-gates.md)
+
 ## Public Safety Boundaries
 - No concrete addresses, usernames, passwords, tokens, or key material in this doc.
 - No copy-paste access commands with real infrastructure identifiers.

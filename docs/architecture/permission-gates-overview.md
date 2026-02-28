@@ -21,3 +21,8 @@
 - Secret values and detailed operational internals remain private.
 - Channel index may appear as transport metadata but must not be used for authorization decisions.
 - Operationally expensive mistake: treating channel index as stable identity can create ghost-channel publishes and false denies.
+
+## Related Surface Docs
+- [Permission Gate Surface](surfaces/permission-gates.md)
+- [Edge Bridge Surface](surfaces/edge-bridge-mr-pink.md)
+- [Control Runtime Surface](surfaces/control-runtime-joe-openclaw.md)

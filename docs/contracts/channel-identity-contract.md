@@ -15,3 +15,6 @@ Channel indices can drift between devices and over time; identity matching reduc
 - Do not use `channel_index` as an authorization selector.
 - Do not treat topic index and packet index mismatches as a permission decision source.
 - Do treat index fields as transport metadata useful for diagnostics and routing telemetry only.
+
+## Operational Warning
+Treating channel index as authorization identity is an expensive recurring failure mode that causes ghost-channel behavior, dropped escalation, and recovery churn.
