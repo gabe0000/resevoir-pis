@@ -135,3 +135,24 @@
   - core API now coalesces concurrent Meshtastic cache misses and reuses pooled HTTP connections.
   - dashboard poll cadence for key Meshtastic views was reduced.
 - Observed call-rate reduction in short verification window on core-api -> meshtastic module path.
+
+## RP-20260301-002
+- Date/Time: 2026-03-01 15:30 UTC
+- Context: Public projection needed to catch up with private HQ-era architecture and governance updates.
+- Decision:
+  - Publish an explicit Resevoir Comms HQ model with Office/Library/Desk boundaries.
+  - Add a public-safe become-an-expert contract and Library memory runbook.
+  - Enforce mapping and phase-marker checks in docs validation.
+- Implementation:
+  - Added `docs/architecture/resevoir-comms-hq-layout.md`.
+  - Added `docs/architecture/office-library-desk.md`.
+  - Added `docs/contracts/become-an-expert-contract.md`.
+  - Added `docs/runbooks/library-memory-management.md`.
+  - Added refactor bundle `RF-20260301-002-resevoir-comms-hq-office-library-desk/*`.
+  - Updated `docs/PUBLIC_DOCS_MAP.md` rows for new private->public mappings.
+  - Updated `scripts/validate-docs.sh` with new required files and phase checks.
+- Failure(s) / Incident(s): None during documentation update wave.
+- Verification:
+  - Public docs validator passes after updates.
+- Open Risks / Follow-ups:
+  - Maintain strict private-first sync so public projection remains current after each runtime refactor.
