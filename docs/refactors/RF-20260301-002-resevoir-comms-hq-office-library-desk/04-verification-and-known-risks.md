@@ -14,3 +14,8 @@
 ## Known risks
 - public projection quality still depends on disciplined private-first update cadence
 - narrative docs may lag runtime unless each infra wave includes immediate docs updates
+
+### 2026-03-02 Checkpoint Verification Addendum
+1. Public checkpoint wave completed as docs-only update (`docs/**` scope).
+2. Mr. Pink technical architecture writeup, timeline records, and refactor addenda are aligned.
+3. Runtime cleanup and process-pruning work is deferred to a dedicated follow-up wave.

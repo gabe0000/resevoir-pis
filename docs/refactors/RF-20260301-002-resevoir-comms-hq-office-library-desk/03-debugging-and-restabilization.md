@@ -13,3 +13,8 @@ Stabilization actions:
 
 Residual risk:
 - ongoing runtime changes can outpace public projection if sync cadence is not enforced.
+
+### 2026-03-02 Docs-Only Checkpoint Addendum
+1. Added checkpoint timeline entries after overnight stabilization/testing wave.
+2. Expanded Mr. Pink public document into technical architecture format for clearer runtime interpretation.
+3. Marked current posture as semi-stable checkpoint pending separate runtime cleanup wave.

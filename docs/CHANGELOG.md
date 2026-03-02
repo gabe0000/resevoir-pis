@@ -40,3 +40,9 @@
 - Added public `become-an-expert` contract and Library memory management runbook.
 - Added refactor bundle `RF-20260301-002-resevoir-comms-hq-office-library-desk` with explicit baseline/final phase markers.
 - Extended docs validator and docs map for HQ-era projection parity checks.
+
+## 2026-03-02
+- Added docs-only checkpoint wave after overnight runtime stabilization/tuning work.
+- Expanded `docs/agents/mr-pink.md` into a technical architecture paper (runtime split, gates, OpenClaw detachment posture, HQ data model).
+- Synchronized public narrative with current operating baseline: stable Mr. Pink edge behavior first, optional/degraded deep escalation path second.
+- Updated governance traceability entries (journal/logbook) for checkpoint continuity before next cleanup/refactor wave.

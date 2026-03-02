@@ -156,3 +156,22 @@
   - Public docs validator passes after updates.
 - Open Risks / Follow-ups:
   - Maintain strict private-first sync so public projection remains current after each runtime refactor.
+
+## RP-20260302-001
+- Date/Time: 2026-03-02 15:05 EST
+- Context: Overnight runtime work produced a semi-stable checkpoint that needed immediate cross-repo documentation alignment before further cleanup/refactor work.
+- Decision:
+  - Execute a docs-only synchronization wave across private and public repos.
+  - Treat this as a checkpoint baseline (not final architecture freeze).
+  - Keep public docs explicit about current posture: edge-first reliability, optional/degraded deep escalation.
+- Implementation:
+  - Expanded `docs/agents/mr-pink.md` into a technical architecture paper (container split, contract lifecycle, permission gates, OpenClaw detachment, HQ Office/Desk/Library model).
+  - Added dated checkpoint records in changelog/logbook to preserve timeline continuity.
+  - Aligned language with anti-pattern rule continuity (channel index never used for authorization).
+- Failure(s) / Incident(s):
+  - None in the documentation update wave itself.
+- Verification:
+  - Public docs repo includes the updated Mr. Pink architecture document and matching timeline entries.
+  - Change set remains documentation-only.
+- Open Risks / Follow-ups:
+  - Runtime implementation may still diverge from docs during hotfix periods unless private/public sync is run immediately after each operational wave.
