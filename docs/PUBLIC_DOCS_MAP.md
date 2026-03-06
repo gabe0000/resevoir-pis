@@ -25,6 +25,8 @@
 | `susnet/docs/contracts/become-an-expert-contract.md` | `docs/contracts/become-an-expert-contract.md` | sanitized 1:1 |
 | `meshbox-privat/docs/contracts/edge-become-an-expert-triggering.md` | `docs/contracts/become-an-expert-contract.md` | merged trigger semantics |
 | `susnet/docs/ops/runbooks/library-memory-management.md` | `docs/runbooks/library-memory-management.md` | public-safe summary |
+| `susnet/docs/ops/runbooks/resevoirpis-state-switch.md` | `docs/runbooks/resevoirpis-operations.md` | public-safe operations summary |
+| `meshbox-privat/docs/ops/runbooks/resevoirpis-state-switch.md` | `docs/runbooks/resevoirpis-operations.md` | public-safe edge operations summary |
 | `susnet/docs/CHANGE_IMPACTS.md` | `docs/owners-manual/10-governance.md` | summarized workflow |
 | `meshbox-privat/docs/CHANGE_IMPACTS.md` | `docs/owners-manual/10-governance.md` | summarized workflow |
 | `susnet/docs/refactors/README.md` | `docs/refactors/README.md` | sanitized 1:1 |

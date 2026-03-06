@@ -108,6 +108,7 @@ This repository does not publish:
 - `docs/contracts/stock-meshtastic-mqtt-contract.md`
 - `docs/contracts/custom-meshbox-susnet-agent-contract.md`
 - `docs/contracts/become-an-expert-contract.md`
+- `docs/runbooks/resevoirpis-operations.md`
 - `docs/refactors/README.md`
 
 ## Current Direction

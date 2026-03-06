@@ -46,3 +46,8 @@
 - Expanded `docs/agents/mr-pink.md` into a technical architecture paper (runtime split, gates, OpenClaw detachment posture, HQ data model).
 - Synchronized public narrative with current operating baseline: stable Mr. Pink edge behavior first, optional/degraded deep escalation path second.
 - Updated governance traceability entries (journal/logbook) for checkpoint continuity before next cleanup/refactor wave.
+
+## 2026-03-06
+- Added `ResevoirPis` dual-state operations runbook (`docs/runbooks/resevoirpis-operations.md`).
+- Updated README start path to include the Reservoir state-switch runbook.
+- Extended `PUBLIC_DOCS_MAP.md` with private-to-public mappings for Reservoir state-switch runbooks.

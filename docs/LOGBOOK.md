@@ -10,3 +10,4 @@
 - 2026-02-28: Added RP-20260228-001 addendum for first runtime tuning pass that reduced Meshtastic poll pressure through control-path coalescing and slower dashboard poll cadence.
 - 2026-03-01: Added RP-20260301-002 HQ-era projection docs (layout, Office/Library/Desk, become-an-expert contract, memory runbook, and refactor bundle).
 - 2026-03-02: Added RP-20260302-001 docs-only checkpoint sync after overnight runtime stabilization wave; expanded Mr. Pink technical architecture paper and aligned public baseline narrative.
+- 2026-03-06: Added RP-20260306-001 Reservoir state-switch docs wave (`ResevoirPis` runbook, README start-link update, and PUBLIC_DOCS_MAP runbook mappings).

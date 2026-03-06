@@ -1,0 +1,227 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import shlex
+import subprocess
+import sys
+from pathlib import Path
+from typing import Dict, List, Tuple
+
+CONFIRM_TOKEN = "RESEVOIRPIS"
+CONFIG_PATH = Path.home() / ".config" / "resevoir-pis" / "hosts.env"
+LOCAL_README = Path("/usr/local/share/resevoir-pis/README.md")
+USERSPACE_README = Path.home() / ".local" / "share" / "resevoir-pis" / "README.md"
+GITHUB_RUNBOOK = "https://github.com/gabe0000/resevoir-pis/blob/main/docs/runbooks/resevoirpis-operations.md"
+
+HOSTS = {
+    "susnet": {
+        "host_env": "SUSNET_HOST",
+        "hostctl": "/home/gabe0000/susnet-next/scripts/resevoirpis-hostctl.sh",
+    },
+    "meshbox": {
+        "host_env": "MESHBOX_HOST",
+        "hostctl": "/home/gabe0000/meshbox/scripts/resevoirpis-hostctl.sh",
+    },
+}
+
+
+def parse_env_file(path: Path) -> Dict[str, str]:
+    values: Dict[str, str] = {}
+    if not path.exists():
+        return values
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, val = line.split("=", 1)
+        values[key.strip()] = val.strip().strip('"').strip("'")
+    return values
+
+
+def require_host_config() -> Dict[str, str]:
+    env = parse_env_file(CONFIG_PATH)
+    missing = [k for k in ["SSH_USER", "SUSNET_HOST", "MESHBOX_HOST"] if not env.get(k)]
+    if missing:
+        raise SystemExit(
+            "Missing host config in "
+            f"{CONFIG_PATH}. Required keys: SSH_USER, SUSNET_HOST, MESHBOX_HOST"
+        )
+    return env
+
+
+def run_cmd(cmd: List[str], check: bool = True) -> subprocess.CompletedProcess:
+    proc = subprocess.run(cmd, text=True, capture_output=True)
+    if check and proc.returncode != 0:
+        stderr = proc.stderr.strip()
+        stdout = proc.stdout.strip()
+        details = stderr or stdout or f"exit code {proc.returncode}"
+        raise RuntimeError(f"Command failed: {' '.join(shlex.quote(c) for c in cmd)}\n{details}")
+    return proc
+
+
+def ssh_exec(target: str, remote_cmd: str, check: bool = True) -> subprocess.CompletedProcess:
+    cmd = ["ssh", "-o", "ConnectTimeout=12", target, remote_cmd]
+    return run_cmd(cmd, check=check)
+
+
+def run_hostctl(env: Dict[str, str], host_key: str, action: str, args: List[str] = None, check: bool = True) -> subprocess.CompletedProcess:
+    args = args or []
+    host = env[HOSTS[host_key]["host_env"]]
+    user = env["SSH_USER"]
+    target = f"{user}@{host}"
+    hostctl = HOSTS[host_key]["hostctl"]
+    all_parts = [hostctl, action] + args
+    inner = " ".join(shlex.quote(p) for p in all_parts)
+    remote = "set -euo pipefail; bash -lc " + shlex.quote(inner)
+    return ssh_exec(target, remote, check=check)
+
+
+def parse_status_lines(text: str) -> Dict[str, str]:
+    out: Dict[str, str] = {}
+    for line in text.splitlines():
+        if "=" not in line:
+            continue
+        k, v = line.strip().split("=", 1)
+        out[k.strip()] = v.strip()
+    return out
+
+
+def print_help() -> None:
+    readme_path = LOCAL_README if LOCAL_README.exists() else USERSPACE_README
+    print("ResevoirPis command")
+    print("Usage:")
+    print("  ResevoirPis help")
+    print("  ResevoirPis list")
+    print("  ResevoirPis up --confirm RESEVOIRPIS")
+    print("  ResevoirPis down --confirm RESEVOIRPIS")
+    print("")
+    print(f"Local README: {readme_path}")
+    print(f"In-depth docs: {GITHUB_RUNBOOK}")
+
+
+def compare_protected(before: Dict[str, Dict[str, str]], after: Dict[str, Dict[str, str]]) -> List[str]:
+    mismatches: List[str] = []
+    for host in before:
+        for svc, bstate in before[host].items():
+            astate = after.get(host, {}).get(svc, "missing")
+            if astate != bstate:
+                mismatches.append(f"{host}:{svc} changed {bstate} -> {astate}")
+    return mismatches
+
+
+def preflight(env: Dict[str, str]) -> None:
+    for host in ["susnet", "meshbox"]:
+        run_hostctl(env, host, "preflight")
+
+
+def list_state(env: Dict[str, str]) -> None:
+    preflight(env)
+    for host in ["susnet", "meshbox"]:
+        active = run_hostctl(env, host, "get-active").stdout.strip()
+        print(f"\n[{host}] active_state={active}")
+        print(run_hostctl(env, host, "status-table").stdout.rstrip())
+        print("managed services:", run_hostctl(env, host, "managed-services").stdout.strip())
+        print("protected services:", run_hostctl(env, host, "protected-services").stdout.strip())
+
+
+def ensure_confirm(token: str) -> None:
+    if token != CONFIRM_TOKEN:
+        raise SystemExit("Invalid --confirm token. Required token: RESEVOIRPIS")
+
+
+def transition(env: Dict[str, str], direction: str) -> None:
+    ensure_confirm(getattr(args, "confirm", ""))
+    if direction not in {"up", "down"}:
+        raise SystemExit("Invalid transition")
+
+    src_state = "normal" if direction == "up" else "resevoir"
+    dst_state = "resevoir" if direction == "up" else "normal"
+
+    preflight(env)
+
+    before_protected = {}
+    snapshot_paths: Dict[str, str] = {}
+
+    for host in ["susnet", "meshbox"]:
+        before_protected[host] = parse_status_lines(run_hostctl(env, host, "protected-status").stdout)
+
+    for host in ["susnet", "meshbox"]:
+        out = run_hostctl(env, host, "snapshot", [src_state, f"resevoirpis-{direction}"]).stdout.strip()
+        snapshot_paths[host] = out
+        print(f"[{host}] snapshot created: {out}")
+
+    try:
+        if direction == "down":
+            run_hostctl(env, "susnet", "stop-managed")
+            run_hostctl(env, "meshbox", "stop-managed")
+
+            for host in ["susnet", "meshbox"]:
+                cp = run_hostctl(env, host, "restore-latest", [dst_state], check=False)
+                if cp.returncode == 3:
+                    print(f"[{host}] no '{dst_state}' bundle yet; continuing without restore")
+                elif cp.returncode != 0:
+                    raise RuntimeError(cp.stderr.strip() or cp.stdout.strip() or f"restore failed on {host}")
+
+        else:
+            for host in ["susnet", "meshbox"]:
+                cp = run_hostctl(env, host, "restore-latest", [dst_state], check=False)
+                if cp.returncode == 3:
+                    print(f"[{host}] no '{dst_state}' bundle yet; continuing without restore")
+                elif cp.returncode != 0:
+                    raise RuntimeError(cp.stderr.strip() or cp.stdout.strip() or f"restore failed on {host}")
+
+            run_hostctl(env, "meshbox", "flash-rak")
+            run_hostctl(env, "meshbox", "start-managed")
+            run_hostctl(env, "susnet", "start-managed")
+            run_hostctl(env, "meshbox", "verify-managed-running")
+            run_hostctl(env, "susnet", "verify-managed-running")
+
+        after_protected = {}
+        for host in ["susnet", "meshbox"]:
+            after_protected[host] = parse_status_lines(run_hostctl(env, host, "protected-status").stdout)
+
+        changed = compare_protected(before_protected, after_protected)
+        if changed:
+            raise RuntimeError("Protected services changed:\n" + "\n".join(changed))
+
+        for host in ["susnet", "meshbox"]:
+            run_hostctl(env, host, "set-active", [dst_state])
+
+        print(f"Transition complete: {src_state} -> {dst_state}")
+
+    except Exception as exc:
+        print(f"Transition failed: {exc}", file=sys.stderr)
+        print("Attempting rollback to pre-transition bundles...", file=sys.stderr)
+        for host in ["susnet", "meshbox"]:
+            path = snapshot_paths.get(host)
+            if not path:
+                continue
+            cp = run_hostctl(env, host, "restore-path", [path], check=False)
+            if cp.returncode == 0:
+                if direction == "down":
+                    run_hostctl(env, host, "start-managed", check=False)
+                else:
+                    run_hostctl(env, host, "stop-managed", check=False)
+                run_hostctl(env, host, "set-active", [src_state], check=False)
+            else:
+                print(f"[{host}] rollback failed", file=sys.stderr)
+        raise SystemExit(1)
+
+
+parser = argparse.ArgumentParser(add_help=False)
+parser.add_argument("command", nargs="?", default="help", choices=["help", "list", "up", "down"])
+parser.add_argument("--confirm", default="")
+args = parser.parse_args()
+
+if args.command == "help":
+    print_help()
+    raise SystemExit(0)
+
+env = require_host_config()
+
+if args.command == "list":
+    list_state(env)
+elif args.command == "up":
+    transition(env, "up")
+elif args.command == "down":
+    transition(env, "down")

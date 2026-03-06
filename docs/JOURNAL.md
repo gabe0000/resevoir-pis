@@ -175,3 +175,21 @@
   - Change set remains documentation-only.
 - Open Risks / Follow-ups:
   - Runtime implementation may still diverge from docs during hotfix periods unless private/public sync is run immediately after each operational wave.
+
+## RP-20260306-001
+- Date/Time: 2026-03-06 11:20 EST
+- Context: Reservoir needed an operator-safe dual-state switch model (`normal` <-> `resevoir`) with explicit guardrails and public-safe operating documentation.
+- Decision:
+  - Standardize command surface as `ResevoirPis` (`help`, `list`, `up`, `down`).
+  - Keep Tailscale and protected services out of command control scope.
+  - Document dual-state bundle semantics and failure handling in a dedicated runbook.
+- Implementation:
+  - Added `docs/runbooks/resevoirpis-operations.md`.
+  - Added runbook link in public `README.md`.
+  - Updated `docs/PUBLIC_DOCS_MAP.md` with state-switch runbook mappings.
+- Failure(s) / Incident(s): None in documentation projection.
+- Verification:
+  - Docs updated and linked from start path.
+  - Mapping rows added for private runbook projection targets.
+- Open Risks / Follow-ups:
+  - Runtime scripts and host manifests must stay synchronized with this runbook as operational behavior evolves.
