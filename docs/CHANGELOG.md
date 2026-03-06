@@ -34,3 +34,20 @@
 - Expanded `PUBLIC_DOCS_MAP.md` to include surface/refactor projection mappings.
 - Updated validator to enforce required refactor files and additional leak checks.
 - Added RP-20260228-001 runtime-tuning addendum documenting first poll-pressure reduction pass on Susnet control path.
+
+## 2026-03-01
+- Added HQ-era public architecture docs: `resevoir-comms-hq-layout` and `office-library-desk`.
+- Added public `become-an-expert` contract and Library memory management runbook.
+- Added refactor bundle `RF-20260301-002-resevoir-comms-hq-office-library-desk` with explicit baseline/final phase markers.
+- Extended docs validator and docs map for HQ-era projection parity checks.
+
+## 2026-03-02
+- Added docs-only checkpoint wave after overnight runtime stabilization/tuning work.
+- Expanded `docs/agents/mr-pink.md` into a technical architecture paper (runtime split, gates, OpenClaw detachment posture, HQ data model).
+- Synchronized public narrative with current operating baseline: stable Mr. Pink edge behavior first, optional/degraded deep escalation path second.
+- Updated governance traceability entries (journal/logbook) for checkpoint continuity before next cleanup/refactor wave.
+
+## 2026-03-06
+- Added `ResevoirPis` dual-state operations runbook (`docs/runbooks/resevoirpis-operations.md`).
+- Updated README start path to include the Reservoir state-switch runbook.
+- Extended `PUBLIC_DOCS_MAP.md` with private-to-public mappings for Reservoir state-switch runbooks.

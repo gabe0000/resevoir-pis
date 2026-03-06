@@ -135,3 +135,61 @@
   - core API now coalesces concurrent Meshtastic cache misses and reuses pooled HTTP connections.
   - dashboard poll cadence for key Meshtastic views was reduced.
 - Observed call-rate reduction in short verification window on core-api -> meshtastic module path.
+
+## RP-20260301-002
+- Date/Time: 2026-03-01 15:30 UTC
+- Context: Public projection needed to catch up with private HQ-era architecture and governance updates.
+- Decision:
+  - Publish an explicit Resevoir Comms HQ model with Office/Library/Desk boundaries.
+  - Add a public-safe become-an-expert contract and Library memory runbook.
+  - Enforce mapping and phase-marker checks in docs validation.
+- Implementation:
+  - Added `docs/architecture/resevoir-comms-hq-layout.md`.
+  - Added `docs/architecture/office-library-desk.md`.
+  - Added `docs/contracts/become-an-expert-contract.md`.
+  - Added `docs/runbooks/library-memory-management.md`.
+  - Added refactor bundle `RF-20260301-002-resevoir-comms-hq-office-library-desk/*`.
+  - Updated `docs/PUBLIC_DOCS_MAP.md` rows for new private->public mappings.
+  - Updated `scripts/validate-docs.sh` with new required files and phase checks.
+- Failure(s) / Incident(s): None during documentation update wave.
+- Verification:
+  - Public docs validator passes after updates.
+- Open Risks / Follow-ups:
+  - Maintain strict private-first sync so public projection remains current after each runtime refactor.
+
+## RP-20260302-001
+- Date/Time: 2026-03-02 15:05 EST
+- Context: Overnight runtime work produced a semi-stable checkpoint that needed immediate cross-repo documentation alignment before further cleanup/refactor work.
+- Decision:
+  - Execute a docs-only synchronization wave across private and public repos.
+  - Treat this as a checkpoint baseline (not final architecture freeze).
+  - Keep public docs explicit about current posture: edge-first reliability, optional/degraded deep escalation.
+- Implementation:
+  - Expanded `docs/agents/mr-pink.md` into a technical architecture paper (container split, contract lifecycle, permission gates, OpenClaw detachment, HQ Office/Desk/Library model).
+  - Added dated checkpoint records in changelog/logbook to preserve timeline continuity.
+  - Aligned language with anti-pattern rule continuity (channel index never used for authorization).
+- Failure(s) / Incident(s):
+  - None in the documentation update wave itself.
+- Verification:
+  - Public docs repo includes the updated Mr. Pink architecture document and matching timeline entries.
+  - Change set remains documentation-only.
+- Open Risks / Follow-ups:
+  - Runtime implementation may still diverge from docs during hotfix periods unless private/public sync is run immediately after each operational wave.
+
+## RP-20260306-001
+- Date/Time: 2026-03-06 11:20 EST
+- Context: Reservoir needed an operator-safe dual-state switch model (`normal` <-> `resevoir`) with explicit guardrails and public-safe operating documentation.
+- Decision:
+  - Standardize command surface as `ResevoirPis` (`help`, `list`, `up`, `down`).
+  - Keep Tailscale and protected services out of command control scope.
+  - Document dual-state bundle semantics and failure handling in a dedicated runbook.
+- Implementation:
+  - Added `docs/runbooks/resevoirpis-operations.md`.
+  - Added runbook link in public `README.md`.
+  - Updated `docs/PUBLIC_DOCS_MAP.md` with state-switch runbook mappings.
+- Failure(s) / Incident(s): None in documentation projection.
+- Verification:
+  - Docs updated and linked from start path.
+  - Mapping rows added for private runbook projection targets.
+- Open Risks / Follow-ups:
+  - Runtime scripts and host manifests must stay synchronized with this runbook as operational behavior evolves.
